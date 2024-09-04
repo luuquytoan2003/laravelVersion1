@@ -8,4 +8,9 @@ LQ.switchery = () => {
     })
 }
 
+LQ.select2 = () => {
+    $('.setupSelect2').select2()
+}
+
 LQ.switchery()
+LQ.select2()

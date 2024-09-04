@@ -7,11 +7,11 @@ use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
 /**
- * Class User.
+ * Class Province.
  *
  * @package namespace App\Entities;
  */
-class User extends Model implements Transformable
+class Province extends Model implements Transformable
 {
     use TransformableTrait;
 
@@ -21,18 +21,17 @@ class User extends Model implements Transformable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone',
-        'address',
-        'province_id',
-        'district_id',
-        'ward_id',
-        'birthday',
-        'image',
-        'description',
-        'user_agent',
-        'ip'
+        'name'
     ];
+
+    protected $table = 'provinces';
+
+    protected $primaryKey = 'code';
+
+    public $incrementing = false;
+
+    public function districts()
+    {
+        return $this->hasMany(District::class, 'province_code', 'code');
+    }
 }

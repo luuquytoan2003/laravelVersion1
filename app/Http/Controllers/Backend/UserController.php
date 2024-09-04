@@ -4,16 +4,20 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Repositories\ProvinceRepository;
 use App\Services\Interfaces\UserServiceInterface as UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     protected $userService;
+    protected $provinceRepository;
     public function __construct(
-        UserService $userService
+        UserService $userService,
+        ProvinceRepository $provinceRepository
     ) {
         $this->userService = $userService;
+        $this->provinceRepository = $provinceRepository;
     }
     public function index()
     {
@@ -37,17 +41,20 @@ class UserController extends Controller
 
     public function create()
     {
+        $provinces = $this->provinceRepository->all();
         $config = [
             'js' => [
-                'backend/js/plugins/switchery/switchery.js'
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
+                'backend/libary/location.js'
             ],
             'css' => [
-                'backend/css/plugins/switchery/switchery.css'
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
             ],
             'seo' => config('apps.user.create')
         ];
         $template = 'backend.user.create';
         return view('backend.dashboard.layout', compact([
+            'provinces',
             'config',
             'template'
         ]));

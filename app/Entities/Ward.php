@@ -7,11 +7,11 @@ use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
 /**
- * Class UserRepository.
+ * Class Ward.
  *
  * @package namespace App\Entities;
  */
-class UserRepository extends Model implements Transformable
+class Ward extends Model implements Transformable
 {
     use TransformableTrait;
 
@@ -20,6 +20,14 @@ class UserRepository extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
-
+    protected $fillable = [
+        'name'
+    ];
+    protected $table = 'wards';
+    protected $primaryKey = 'code';
+    public $incrementing = false;
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_code', 'code');
+    }
 }

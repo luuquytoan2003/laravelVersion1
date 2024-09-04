@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\UserController;
@@ -17,6 +18,11 @@ Route::prefix('user')->group(function () {
     Route::get('/index', [UserController::class, 'index'])->name('user.index');
     Route::get('/create', [UserController::class, 'create'])->name('user.create');
 })->middleware('admin');
+
+
+/**AJAX */
+Route::post('/ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index')->middleware('admin');
+
 
 
 /**AUTH */

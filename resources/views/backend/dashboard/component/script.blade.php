@@ -12,7 +12,9 @@
     @endforeach
 
 @endif
+
 <script src="{{ asset('backend/libary/libary.js') }}"></script>
+
 {{-- <script>
     $(document).ready(function() {
         $('.chart').easyPieChart({
