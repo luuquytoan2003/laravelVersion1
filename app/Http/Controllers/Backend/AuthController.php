@@ -36,16 +36,10 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        echo 1234;
-        die();
-        // Auth::logout();
-        // $request->session()->invalidate();
-        // $request->session()->regenerateToken();
-        // // toastr()->info('Đã đăng xuất thành công');
-        // return redirect()->route('auth.admin');
-    }
-    public function test()
-    {
-        dd(Auth::id());
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        toastr()->info('Đã đăng xuất thành công');
+        return redirect()->route('auth.admin');
     }
 }

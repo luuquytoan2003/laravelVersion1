@@ -21,7 +21,7 @@
     box-sizing: content-box;
 }
 
-.switchery > small {
+.switchery>small {
     background: #fff;
     border-radius: 100%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);

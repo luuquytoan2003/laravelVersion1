@@ -33,14 +33,16 @@
             <form class="m-t" role="form" action="{{ route('auth.login') }}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Username" name="email">
+                    <input type="text" class="form-control" placeholder="Username" name="email"
+                        value="{{ old('email') }}">
                     @if ($errors->has('email'))
                         <span class="error-message">* {{ $errors->first('email') }}</span>
                     @endif
                 </div>
 
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" name="password">
+                    <input type="password" class="form-control" placeholder="Password" name="password"
+                        value="{{ old('password') }}">
                     @if ($errors->has('password'))
                         <span class="error-message">* {{ $errors->first('password') }}</span>
                     @endif
