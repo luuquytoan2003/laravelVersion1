@@ -1,32 +1,6 @@
 "use strict"
 let LQT = {}
 
-// LQT.province = () => {
-//     const province = document.querySelector('.province')
-//     province.onchange = async function () {
-//         let province_id = this.value
-//         try {
-//             const response = await fetch(`/ajax/location/getLocation?province_id=${province_id}`, {
-//                 method: "GET",
-//             })
-//             const result = await response.json()
-
-//             const district = document.querySelector('.district');
-//             district.innerHTML = '<option value="0">[Chọn Quận/huyện]</option>'
-
-//             result.map(item => {
-//                 const option = document.createElement('option')
-//                 option.value = item.code
-//                 option.textContent = item.name
-//                 district.appendChild(option)
-//             })
-
-//         } catch (error) {
-//             console.log('ERROR>>>', error);
-//         }
-//     }
-// }
-
 LQT.getLocation = () => {
     const location = document.querySelectorAll('.location')
     location.forEach(element => {
@@ -87,4 +61,3 @@ LQT.createElement = (result, dom) => {
 }
 
 LQT.getLocation()
-// LQT.province()

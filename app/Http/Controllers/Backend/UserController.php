@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use App\Repositories\ProvinceRepository;
 use App\Services\Interfaces\UserServiceInterface as UserService;
@@ -58,5 +59,15 @@ class UserController extends Controller
             'config',
             'template'
         ]));
+    }
+    public function store(StoreUserRequest $request)
+    {
+        if ($this->userService->create($request)) {
+            toastr()->success('Thêm mới bản ghi thành công');
+            return redirect()->route('user.index');
+        } else {
+            toastr()->error('Thêm mới bản ghi thất bại');
+            return redirect()->route('user.create');
+        }
     }
 }

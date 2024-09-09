@@ -2,7 +2,18 @@
     'title' => $config['seo']['title'],
 ])
 
-<form action="" method="POST">
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<form action="{{ route('user.store') }}" method="POST">
+    @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-5">
@@ -22,7 +33,8 @@
                                 <div class="form-row">
                                     <label for="" class="control-label ">Email </label>
                                     <span class="text-danger">(*)</span>
-                                    <input type="text" class="form-control" name="email" value="">
+                                    <input name="email" type="text" class="form-control"
+                                        value="{{ old('email') }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -30,7 +42,8 @@
                                     <label for="" class="control-label ">Họ tên </label>
                                     <span class="text-danger">(*)</span>
 
-                                    <input type="text" class="form-control" name="name" value="">
+                                    <input name="name" type="text" class="form-control"
+                                        value="{{ old('name') }}">
                                 </div>
                             </div>
                         </div>
@@ -39,7 +52,9 @@
                                 <div class="form-row">
                                     <label for="" class="control-label ">Nhóm thành viên</label>
                                     <span class="text-danger">(*)</span>
-                                    <select name="user_catalogue_id" class="form-control ">
+                                    <select name="user_catalogue_id" class="form-control setupSelect2">
+                                        <option value="1">Quản trị viên</option>
+                                        <option value="2">Cộng tác viên</option>
                                     </select>
                                 </div>
                             </div>
@@ -48,7 +63,8 @@
                                     <label class="control-label">Ngày sinh</label>
                                     <div class="input-group date">
                                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        <input type="text" class="form-control" value="" name="birthday">
+                                        <input name="birthday" type="date" class="form-control"
+                                            value="{{ old('birthday') }}">
                                     </div>
                                 </div>
                             </div>
@@ -58,21 +74,23 @@
                                 <div class="form-row">
                                     <label for="" class="control-label ">Mật khẩu</label>
                                     <span class="text-danger">(*)</span>
-                                    <input type="password" class="form-control" name="password" value="">
+                                    <input name="password" type="password" class="form-control"
+                                        value="{{ old('password') }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label ">Nhập lại mật khẩu</label>
                                     <span class="text-danger">(*)</span>
-                                    <input type="password" class="form-control" name="re_password" value="">
+                                    <input name="re_password" type="password" class="form-control"
+                                        value="{{ old('re_password') }}">
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-15">
                             <div class="col-lg-12">
                                 <label for="" class="control-label">Ảnh đại diện</label>
-                                <input type="text" name="image" class="form-control">
+                                <input name="image" type="text" class="form-control" value="{{ old('image') }}">
                             </div>
                         </div>
                     </div>
@@ -130,14 +148,16 @@
                                 <div class="form-row">
                                     <label for="" class="control-label ">Địa chỉ</label>
 
-                                    <input type="text" class="form-control" name="address" value="">
+                                    <input name="address" type="text" class="form-control"
+                                        value="{{ old('address') }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label ">Số điện thoại</label>
 
-                                    <input type="text" class="form-control" name="phone" value="">
+                                    <input name="phone" type="text" class="form-control"
+                                        value="{{ old('phone') }}">
                                 </div>
                             </div>
                         </div>
@@ -146,7 +166,7 @@
                             <div class="col-lg-12">
                                 <div class="form-row">
                                     <label for="" class="control-label ">Ghi chú</label>
-                                    <textarea name="description" cols="30" rows="5" class="form-control"></textarea>
+                                    <textarea name="description" cols="30" rows="5" class="form-control">{{ old('description') }}</textarea>
                                 </div>
                             </div>
                         </div>
