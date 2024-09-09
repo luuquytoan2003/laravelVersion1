@@ -33,6 +33,7 @@ class User extends Model implements Transformable
         'image',
         'description',
         'user_agent',
-        'ip'
+        'ip',
+        'user_catalogue_id'
     ];
 }

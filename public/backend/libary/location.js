@@ -13,28 +13,32 @@ LQT.getLocation = () => {
             }
 
             const result = await LQT.sendDataToGetLocation(option)
+            const district = document.querySelector('.district');
+            const ward = document.querySelector('.ward');
 
             if (element.dataset.target === 'district') {
-                const district = document.querySelector('.district');
-                district.innerHTML = '<option value="0">[Chọn Quận/huyện]</option>'
 
+                district.innerHTML = '<option value="0">[Chọn Quận/huyện]</option>'
                 LQT.createElement(result, district)
             }
             else {
-                const ward = document.querySelector('.ward');
+
                 ward.innerHTML = '<option value="0">[Chọn Xã/phường]</option>'
-
                 LQT.createElement(result, ward)
-
             }
-
-
+            if (option.target === 'district' && district_id !== '') {
+                district.value = district_id
+                district.dispatchEvent(new Event('change'))
+            } else if (option.target === 'ward' && ward_id !== '') {
+                ward.value = ward_id
+                ward.dispatchEvent(new Event('change'))
+            }
         }
     });
 }
+
 LQT.sendDataToGetLocation = async (option) => {
     try {
-
         const response = await fetch(`/ajax/location/getLocation`, {
             method: "POST",
             body: JSON.stringify(option),
@@ -60,4 +64,14 @@ LQT.createElement = (result, dom) => {
     })
 }
 
-LQT.getLocation()
+LQT.loadCity = () => {
+    if (province_id != '') {
+        document.querySelector('.province').dispatchEvent(new Event('change'));
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    LQT.getLocation()
+    LQT.loadCity()
+})

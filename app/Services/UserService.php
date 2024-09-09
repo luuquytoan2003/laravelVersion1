@@ -43,4 +43,34 @@ class UserService implements UserServiceInterface
             return false;
         }
     }
+
+    public function update($request, $id)
+    {
+        try {
+            DB::transaction(function () use ($request, $id) {
+                $payload = $request->except(['_token']);
+                $dateFormat = Carbon::createFromFormat('Y-m-d', $payload['birthday']);
+                $payload['birthday'] = $dateFormat->format('Y-m-d H:i:s');
+                $user = $this->userRepository->update($payload, $id);
+            }, 3);
+            return true;
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+            die();
+            return false;
+        }
+    }
+    public function delete($id)
+    {
+        try {
+            DB::transaction(function () use ($id) {
+                $user = $this->userRepository->delete($id);
+            }, 3);
+            return true;
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+            die();
+            return false;
+        }
+    }
 }

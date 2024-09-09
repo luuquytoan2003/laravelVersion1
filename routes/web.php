@@ -14,11 +14,14 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('admin');
 
 /**USER */
-Route::prefix('user')->group(function () {
-    Route::get('/index', [UserController::class, 'index'])->name('user.index');
-    Route::get('/create', [UserController::class, 'create'])->name('user.create');
-    Route::post('/store', [UserController::class, 'store'])->name('user.store');
-})->middleware('admin');
+Route::prefix('user/')->group(function () {
+    Route::get('index', [UserController::class, 'index'])->name('user.index')->middleware('admin');
+    Route::get('create', [UserController::class, 'create'])->name('user.create')->middleware('admin');
+    Route::post('store', [UserController::class, 'store'])->name('user.store')->middleware('admin');
+    Route::get('edit/{id}', [UserController::class, 'edit'])->name('user.edit')->middleware('admin')->where('id', '[0-9]+');
+    Route::post('update/{id}', [UserController::class, 'update'])->name('user.update')->middleware('admin')->where('id', '[0-9]+');
+    Route::get('destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy')->middleware('admin')->where('id', '[0-9]+');
+});
 
 
 /**AJAX */
