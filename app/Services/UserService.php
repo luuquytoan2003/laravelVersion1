@@ -20,10 +20,19 @@ class UserService implements UserServiceInterface
     ) {
         $this->userRepository = $userRepository;
     }
-    public function paginate()
+    public function paginate($request)
     {
-        $users = $this->userRepository->paginate(15);
-        return $users;
+        $condition = [
+            'keyword' => $request->keyword,
+            'perpage' => $request->perpage
+        ];
+        $query = $this->userRepository->where(function ($query) use ($condition) {
+            $query->where('name', 'LIKE', '%' . $condition['keyword'] . '%');
+        });
+
+        return $query->paginate($condition['perpage'], ['name', 'email', 'phone', 'address', 'publish', 'id'])
+            ->withQueryString()
+            ->withPath(env('APP_URL' . 'user/index'));
     }
     public function create($request)
     {
@@ -67,7 +76,7 @@ class UserService implements UserServiceInterface
                 $user = $this->userRepository->delete($id);
             }, 3);
             return true;
-        } catch (\Throwable $th) {
+        } catch (\Exception $th) {
             echo $th->getMessage();
             die();
             return false;

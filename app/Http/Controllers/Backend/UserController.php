@@ -25,9 +25,9 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
         $this->provinceRepository = $provinceRepository;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->userService->paginate();
+        $users = $this->userService->paginate($request);
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js'
